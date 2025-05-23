@@ -6,8 +6,8 @@ This Chrome extension adds a smart AI assistant to input fields on websites. It 
 
 ## Images
 
-![AI Auto Fill Extension Screenshot](./images/ss_1.png)
-
+![AI Auto Fill Extension Screenshot Settings](./images/ss_1.png)
+![AI Auto Fill Extension Screenshot](./images/ai-auto-fill-assistant.gif)
 
 ## Features
 

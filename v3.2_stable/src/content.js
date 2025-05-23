@@ -120,8 +120,16 @@ function addAIButtonsToInputs() {
     // Initially disabled
     enhanceIcon.classList.add("disabled");
     enhanceIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Main central sparkle -->
+        <path d="M12 2L13.5 9L20 10L13.5 11L12 18L10.5 11L4 10L10.5 9Z" fill="currentColor" stroke="none"/>
+        <!-- Small sparkle top right -->
+        <path d="M19 4L19.5 6L21.5 6.5L19.5 7L19 9L18.5 7L16.5 6.5L18.5 6Z" fill="currentColor" stroke="none"/>
+        <!-- Small sparkle bottom left -->
+        <path d="M5 15L5.5 17L7.5 17.5L5.5 18L5 20L4.5 18L2.5 17.5L4.5 17Z" fill="currentColor" stroke="none"/>
+        <!-- Tiny sparkle dots -->
+        <circle cx="17" cy="15" r="0.5" fill="currentColor"/>
+        <circle cx="7" cy="6" r="0.5" fill="currentColor"/>
       </svg>
       <span class="ai-button-tooltip">Enhance</span>
     `;

@@ -1,0 +1,186 @@
+.ai-autofill-wand-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Changed from absolute to relative */
+  z-index: 9999;
+  cursor: pointer;
+  pointer-events: all !important;
+  width: 32px; /* Reduced from 36px */
+  height: 32px; /* Reduced from 36px */
+}
+
+.ai-autofill-wand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Reduced from 28px */
+  height: 24px; /* Reduced from 28px */
+  background-color: rgba(126, 58, 224, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.ai-autofill-wand:hover {
+  background-color: rgb(99, 26, 201);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ai-autofill-wand svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ai-autofill-wand.loading {
+  animation: wandMagic 1.2s ease-in-out infinite;
+  transform-origin: bottom right;
+}
+
+@keyframes wandMagic {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-15deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.1);
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
+  }
+  75% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+/* Make sure the wand appears on top of other elements */
+.ai-autofill-wand-container {
+  pointer-events: auto !important;
+}
+
+.ai-autofill-wand-container * {
+  pointer-events: auto !important;
+}
+
+.ai-autofill-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  z-index: 9999;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: all !important;
+  height: 36px;
+  gap: 2px; /* Increased gap between buttons */
+  min-width: 80px; /* Ensure minimum width for the container */
+}
+
+.ai-autofill-ask-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative; /* Added position relative */
+  width: 32px; /* Reduced from 36px */
+  height: 32px; /* Reduced from 36px */
+}
+
+.ai-autofill-ask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Reduced from 28px */
+  height: 24px; /* Reduced from 28px */
+  background-color: rgba(52, 168, 83, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.ai-autofill-ask:hover {
+  background-color: rgb(39, 142, 66);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ai-autofill-ask svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ai-prompt-popup {
+  position: absolute;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  width: 300px;
+  padding: 15px;
+  top: calc(100% + 10px);
+  right: 0;
+  font-family: Arial, sans-serif;
+  animation: popup-appear 0.3s ease;
+}
+
+@keyframes popup-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-prompt-popup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.ai-prompt-popup .buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ai-prompt-popup button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.ai-prompt-popup .cancel-btn {
+  background-color: #f1f3f4;
+  color: #5f6368;
+}
+
+.ai-prompt-popup .cancel-btn:hover {
+  background-color: #e8eaed;
+}
+
+.ai-prompt-popup .submit-btn {
+  background-color: #7e3ae0;
+  color: white;
+}
+
+.ai-prompt-popup .submit-btn:hover {
+  background-color: #6319c1;
+}

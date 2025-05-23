@@ -1,0 +1,71 @@
+.ai-autofill-wand-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 9999;
+  cursor: pointer;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: all !important;
+  width: 36px;
+  height: 36px;
+}
+
+.ai-autofill-wand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(126, 58, 224, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.ai-autofill-wand:hover {
+  background-color: rgb(99, 26, 201);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ai-autofill-wand svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ai-autofill-wand.loading {
+  animation: wandMagic 1.2s ease-in-out infinite;
+  transform-origin: bottom right;
+}
+
+@keyframes wandMagic {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-15deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.1);
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
+  }
+  75% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+/* Make sure the wand appears on top of other elements */
+.ai-autofill-wand-container {
+  pointer-events: auto !important;
+}
+
+.ai-autofill-wand-container * {
+  pointer-events: auto !important;
+}

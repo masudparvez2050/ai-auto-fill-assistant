@@ -1,0 +1,298 @@
+// Background script for AI Auto Fill
+console.log("AI Auto Fill: Background script loaded");
+
+// Store the API clients
+let openaiClient = null;
+let claudeClient = null;
+
+// Function to initialize the appropriate AI client based on settings
+async function initializeAIClient() {
+  // Get the saved settings
+  const data = await chrome.storage.sync.get([
+    "aiProvider",
+    "geminiApiKey",
+    "openaiApiKey",
+    "claudeApiKey",
+    "geminiModel",
+    "openaiModel",
+    "claudeModel",
+  ]);
+
+  const provider = data.aiProvider || "gemini";
+
+  switch (provider) {
+    case "gemini":
+      // We'll handle Gemini API directly without SDK
+      break;
+
+    case "openai":
+      // OpenAI doesn't have a native JS SDK, we'll use fetch API
+      if (data.openaiApiKey) {
+        openaiClient = {
+          apiKey: data.openaiApiKey,
+          model: data.openaiModel || "gpt-3.5-turbo",
+        };
+      }
+      break;
+
+    case "claude":
+      // Claude doesn't have a native JS SDK, we'll use fetch API
+      if (data.claudeApiKey) {
+        claudeClient = {
+          apiKey: data.claudeApiKey,
+          model: data.claudeModel || "claude-instant",
+        };
+      }
+      break;
+  }
+
+  return provider;
+}
+
+// Function to generate content using Gemini
+async function generateWithGemini(fieldContext) {
+  try {
+    const data = await chrome.storage.sync.get(["geminiApiKey", "geminiModel"]);
+    const model = data.geminiModel || "gemini-pro";
+    const apiKey = data.geminiApiKey;
+
+    if (!apiKey) {
+      return { error: "Gemini API key not configured" };
+    }
+
+    // Create a prompt based on the field context
+    const prompt = createPromptFromFieldContext(fieldContext);
+
+    // Call Gemini API directly without SDK
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+          },
+        }),
+      }
+    );
+
+    const responseData = await response.json();
+
+    if (
+      responseData &&
+      responseData.candidates &&
+      responseData.candidates.length > 0 &&
+      responseData.candidates[0].content &&
+      responseData.candidates[0].content.parts &&
+      responseData.candidates[0].content.parts.length > 0
+    ) {
+      return {
+        generatedText: responseData.candidates[0].content.parts[0].text,
+      };
+    } else {
+      console.error("Unexpected Gemini API response structure:", responseData);
+      return { error: "Failed to generate content with Gemini" };
+    }
+  } catch (error) {
+    console.error("Error generating with Gemini:", error);
+    return { error: error.message || "Error generating with Gemini" };
+  }
+}
+
+// Function to generate content using OpenAI
+async function generateWithOpenAI(fieldContext) {
+  try {
+    const data = await chrome.storage.sync.get(["openaiApiKey", "openaiModel"]);
+    const model = data.openaiModel || "gpt-3.5-turbo";
+
+    if (!data.openaiApiKey) {
+      return { error: "OpenAI API key not configured" };
+    }
+
+    // Create a prompt based on the field context
+    const prompt = createPromptFromFieldContext(fieldContext);
+
+    // Call OpenAI API
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${data.openaiApiKey}`,
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a helpful assistant that generates content for form fields.",
+          },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 500,
+      }),
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.choices && responseData.choices.length > 0) {
+      return { generatedText: responseData.choices[0].message.content };
+    } else {
+      return { error: "Failed to generate content with OpenAI" };
+    }
+  } catch (error) {
+    console.error("Error generating with OpenAI:", error);
+    return { error: error.message || "Error generating with OpenAI" };
+  }
+}
+
+// Function to generate content using Claude
+async function generateWithClaude(fieldContext) {
+  try {
+    const data = await chrome.storage.sync.get(["claudeApiKey", "claudeModel"]);
+    const model = data.claudeModel || "claude-instant";
+
+    if (!data.claudeApiKey) {
+      return { error: "Claude API key not configured" };
+    }
+
+    // Create a prompt based on the field context
+    const prompt = createPromptFromFieldContext(fieldContext);
+
+    // Call Claude API
+    const response = await fetch("https://api.anthropic.com/v1/complete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": data.claudeApiKey,
+      },
+      body: JSON.stringify({
+        model: model,
+        prompt: `\n\nHuman: ${prompt}\n\nAssistant:`,
+        max_tokens_to_sample: 500,
+        stop_sequences: ["\n\nHuman:"],
+      }),
+    });
+
+    const responseData = await response.json();
+
+    if (responseData.completion) {
+      return { generatedText: responseData.completion.trim() };
+    } else {
+      return { error: "Failed to generate content with Claude" };
+    }
+  } catch (error) {
+    console.error("Error generating with Claude:", error);
+    return { error: error.message || "Error generating with Claude" };
+  }
+}
+
+// Function to create a prompt based on the field context
+function createPromptFromFieldContext(fieldContext) {
+  let prompt =
+    "Generate content for a form field with the following details:\n\n";
+
+  // Add field information
+  prompt += `Field type: ${fieldContext.fieldType}\n`;
+  if (fieldContext.fieldName)
+    prompt += `Field name: ${fieldContext.fieldName}\n`;
+  if (fieldContext.fieldId) prompt += `Field ID: ${fieldContext.fieldId}\n`;
+  if (fieldContext.fieldPlaceholder)
+    prompt += `Placeholder: ${fieldContext.fieldPlaceholder}\n`;
+
+  // Add label information if available
+  if (fieldContext.nearbyLabels && fieldContext.nearbyLabels.length > 0) {
+    prompt += `Associated labels: ${fieldContext.nearbyLabels.join(", ")}\n`;
+  }
+
+  // Add form purpose if available
+  if (fieldContext.formPurpose) {
+    prompt += `Form purpose: ${fieldContext.formPurpose}\n`;
+  }
+
+  // Add specific instructions based on field and form type
+  prompt +=
+    "\nPlease generate appropriate content that would be valid for this field. ";
+
+  if (
+    fieldContext.fieldType === "longText" ||
+    fieldContext.fieldType === "richText"
+  ) {
+    prompt +=
+      "Since this is a long-form text field, please provide a detailed response. ";
+  } else {
+    prompt += "Keep it concise as this is a single-line input field. ";
+  }
+
+  if (fieldContext.formPurpose === "registration") {
+    prompt +=
+      "This is for a registration form, so provide realistic but fictional personal information. ";
+  } else if (fieldContext.formPurpose === "login") {
+    prompt +=
+      'This is for a login form. If it looks like a username field, provide a sample username. If it looks like a password field, just write "********". ';
+  } else if (fieldContext.formPurpose === "comment") {
+    prompt +=
+      "This is for a comment form, so provide a thoughtful comment related to what the page might be about. ";
+  } else if (fieldContext.formPurpose === "blogPost") {
+    prompt +=
+      "This is for a blog post, so provide creative and engaging content. ";
+  } else if (fieldContext.formPurpose === "checkout") {
+    prompt +=
+      "This is for a checkout form, so provide realistic but fictional payment or shipping information. ";
+  }
+
+  prompt +=
+    "\nGenerate ONLY the content to fill in the field, without any additional explanation.";
+
+  return prompt;
+}
+
+// Initialize
+initializeAIClient();
+
+// Listen for messages from content script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "generateContent") {
+    (async () => {
+      try {
+        // Get current provider
+        const provider = await initializeAIClient();
+
+        let result;
+
+        switch (provider) {
+          case "gemini":
+            result = await generateWithGemini(request.fieldContext);
+            break;
+
+          case "openai":
+            result = await generateWithOpenAI(request.fieldContext);
+            break;
+
+          case "claude":
+            result = await generateWithClaude(request.fieldContext);
+            break;
+
+          default:
+            result = { error: "No AI provider configured" };
+        }
+
+        sendResponse(result);
+      } catch (error) {
+        console.error("Error generating content:", error);
+        sendResponse({ error: error.message || "Error generating content" });
+      }
+    })();
+
+    return true; // Keep the message channel open for the async response
+  }
+});

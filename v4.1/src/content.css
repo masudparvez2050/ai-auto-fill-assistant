@@ -1,0 +1,264 @@
+/* Main container for all buttons */
+.ai-autofill-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 9999;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: all !important;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 4px;
+  gap: 4px;
+  height: 26px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ai-autofill-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Common styles for all buttons */
+.ai-autofill-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ai-autofill-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.ai-autofill-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Magic wand button */
+.ai-autofill-wand {
+  background-color: rgba(126, 58, 224, 0.9);
+}
+
+.ai-autofill-wand:hover {
+  background-color: rgb(99, 26, 201);
+}
+
+/* Ask AI button */
+.ai-autofill-ask {
+  background-color: rgba(52, 168, 83, 0.9);
+}
+
+.ai-autofill-ask:hover {
+  background-color: rgb(39, 142, 66);
+}
+
+/* Enhance button */
+.ai-autofill-enhance {
+  background-color: rgba(25, 118, 210, 0.9);
+}
+
+.ai-autofill-enhance:hover {
+  background-color: rgb(21, 101, 192);
+}
+
+.ai-autofill-enhance.disabled {
+  background-color: rgba(189, 189, 189, 0.9);
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Loading animations */
+.ai-autofill-button.loading {
+  animation: button-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes button-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+/* Tooltip styles */
+.ai-button-tooltip {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.ai-autofill-button:hover .ai-button-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Keyboard shortcut hints in tooltips */
+.ai-autofill-wand .ai-button-tooltip::after {
+  content: " (Alt+A)";
+  font-size: 9px;
+  opacity: 0.8;
+}
+
+.ai-autofill-ask .ai-button-tooltip::after {
+  content: " (Alt+Q)";
+  font-size: 9px;
+  opacity: 0.8;
+}
+
+.ai-autofill-enhance .ai-button-tooltip::after {
+  content: " (Alt+E)";
+  font-size: 9px;
+  opacity: 0.8;
+}
+
+/* Ask AI prompt popup */
+.ai-prompt-popup {
+  position: fixed;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  padding: 4px;
+  animation: popup-appear 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.ai-prompt-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ai-prompt-input {
+  width: 100%;
+  padding: 4px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  background-color: rgba(247, 247, 247, 0.9);
+  transition: all 0.2s;
+}
+
+.ai-prompt-input:focus {
+  background-color: rgba(239, 239, 239, 1);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+@keyframes popup-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading spinner */
+.ai-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(25, 118, 210, 0.9);
+  border-radius: 50%;
+  position: absolute;
+  right: 12px;
+  animation: spin 1s linear infinite;
+}
+
+.ai-prompt-popup.loading .ai-spinner {
+  display: block;
+}
+
+.ai-prompt-popup.loading .ai-prompt-input {
+  padding-right: 36px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error message styling */
+.ai-error-message {
+  position: absolute;
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  animation: error-appear 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+@keyframes error-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-popup-error {
+  color: #dc3545;
+  font-size: 12px;
+  padding: 8px;
+  text-align: center;
+  animation: error-appear 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+/* Make sure elements appear on top of other page elements */
+.ai-autofill-container,
+.ai-autofill-button,
+.ai-prompt-popup {
+  pointer-events: auto !important;
+}

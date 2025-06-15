@@ -1,24 +1,46 @@
-# AI Auto Fill Chrome Extension
+# AI Auto Fill Assistant - Complete Project
 
 ## Overview
 
-This Chrome extension adds a smart AI assistant to input fields on websites. It offers three powerful AI features: Auto Fill, Ask AI, and Content Enhancement, allowing you to automatically generate or improve content for any form field.
+A comprehensive AI assistant solution with **two powerful applications**:
+
+1. **🌐 Chrome Extension** - Smart AI assistant for web forms and input fields
+2. **🖥️ Windows Desktop App** - Professional floating AI assistant for Windows
+
+Both applications provide seamless access to multiple AI providers (OpenAI, Gemini, Claude) with modern, intuitive interfaces.
+
+## 📦 Applications
+
+### 🌐 Chrome Extension
+
+Smart AI assistant that enhances web browsing with intelligent form filling and content generation.
+
+**Key Features:**
+
+- Auto Fill for any input field based on context (Alt+A)
+- Ask AI with custom prompts (Alt+Q)
+- Content Enhancement for existing text (Alt+E)
+- Sleek capsule-shaped UI
+- Multi-provider AI support (Gemini, OpenAI, Claude)
+
+### 🖥️ Windows Desktop App ⭐ **NEW!**
+
+Professional floating AI assistant for Windows with modern glassmorphism design.
+
+**Key Features:**
+
+- Always-on-top floating window
+- Global keyboard shortcuts (Alt+Space, Alt+A)
+- System tray integration
+- Dark/light theme support
+- Microsoft Store ready (APPX packaging)
+- Chat history and settings persistence
 
 ## Images
 
-![AI Auto Fill Extension Screenshot Settings](./images/ss_1.png)
-![AI Auto Fill Extension Screenshot](./images/ai-auto-fill-assistant.gif)
+![Chrome Extension Screenshot](./images/ss_1.png)
+![Chrome Extension Demo](./images/ai-auto-fill-assistant.gif)
 
-## Features
-
-- **Auto Fill**: Instantly generates appropriate content for any field based on context (Alt+A)
-- **Ask AI**: Ask the AI to generate specific content with your own custom prompt (Alt+Q)
-- **Content Enhancement**: Improve existing text with AI-powered enhancements (Alt+E)
-- Sleek capsule-shaped UI that appears when you focus on an input field
-- Keyboard shortcuts for faster workflow
-- Supports multiple AI providers (Gemini, OpenAI, Claude)
-- Configurable AI models for each provider
-- Contextual content generation based on field type and form purpose
 - Loading animations and tooltips for improved user experience
 - User-friendly error handling and feedback
 

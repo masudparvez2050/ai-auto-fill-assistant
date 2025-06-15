@@ -1,6 +1,6 @@
 // Function to create and add AI buttons to input fields
 function addAIButtonsToInputs() {
-  console.log("AI Auto Fill: Adding AI buttons to inputs");
+  // console.log("AI Auto Fill: Adding AI buttons to inputs");
 
   // CSS selectors for various input fields and textareas
   const selectors = [
@@ -70,7 +70,7 @@ function addAIButtonsToInputs() {
 
   // Get all relevant input elements
   const inputElements = document.querySelectorAll(selectors.join(", "));
-  console.log("AI Auto Fill: Found", inputElements.length, "input elements");
+  // console.log("AI Auto Fill: Found", inputElements.length, "input elements");
 
   inputElements.forEach((input, index) => {
     // Skip if already has buttons
@@ -204,7 +204,7 @@ function addAIButtonsToInputs() {
 
       // Determine what kind of input field this is
       let fieldContext = determineFieldContext(input);
-      console.log("AI Auto Fill: Field context", fieldContext);
+      // console.log("AI Auto Fill: Field context", fieldContext);
 
       // Show loading state
       wandIcon.classList.add("loading");
@@ -252,7 +252,7 @@ function addAIButtonsToInputs() {
               return;
             }
 
-            console.log("AI Auto Fill: Got response from background", response);
+            // console.log("AI Auto Fill: Got response from background", response);
             if (response && response.generatedText) {
               fillInputWithContent(input, response.generatedText);
               checkContentForEnhanceButton(); // Re-check after filling
@@ -371,10 +371,10 @@ function addAIButtonsToInputs() {
                   return;
                 }
 
-                console.log(
-                  "AI Auto Fill: Got response from background",
-                  response
-                );
+                // console.log(
+                //   "AI Auto Fill: Got response from background",
+                //   response
+                // );
                 if (response && response.generatedText) {
                   fillInputWithContent(input, response.generatedText);
                   checkContentForEnhanceButton(); // Re-check after filling
@@ -492,7 +492,7 @@ function addAIButtonsToInputs() {
               return;
             }
 
-            console.log("AI Auto Fill: Got enhancement response", response);
+            // console.log("AI Auto Fill: Got enhancement response", response);
             if (response && response.enhancedText) {
               fillInputWithContent(input, response.enhancedText);
             }
@@ -703,11 +703,11 @@ function determineFieldContext(input) {
 }
 
 // Initial setup when the page loads
-console.log("AI Auto Fill: Content script loaded");
+// console.log("AI Auto Fill: Content script loaded");
 
 // Function to initialize everything
 function initializeExtension() {
-  console.log("AI Auto Fill: Initializing extension");
+  // console.log("AI Auto Fill: Initializing extension");
 
   try {
     // Add AI buttons to all current inputs
@@ -741,7 +741,7 @@ function initializeExtension() {
         childList: true,
         subtree: true,
       });
-      console.log("AI Auto Fill: MutationObserver started");
+      // console.log("AI Auto Fill: MutationObserver started");
     } catch (error) {
       console.error("AI Auto Fill: Failed to start MutationObserver", error);
     }

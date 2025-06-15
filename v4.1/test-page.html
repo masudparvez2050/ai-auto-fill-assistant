@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Page for AI Auto Fill Assistant v4.1</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        line-height: 1.6;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #7e57c2;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .test-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border-left: 4px solid #7e57c2;
+      }
+      .highlight {
+        background: #fff3cd;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        border: 1px solid #ffeaa7;
+      }
+      .instructions {
+        background: #d1ecf1;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        border: 1px solid #bee5eb;
+      }
+      .code-block {
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Courier New", monospace;
+        margin: 10px 0;
+        overflow-x: auto;
+      }
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+      .feature-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .feature-list li:before {
+        content: "✅ ";
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🤖 AI Auto Fill Assistant v4.1 Test Page</h1>
+
+      <div class="instructions">
+        <h3>📋 Testing Instructions:</h3>
+        <ol>
+          <li>Install the AI Auto Fill Assistant v4.1 extension in Chrome</li>
+          <li>
+            Configure your AI provider (Gemini/OpenAI/Claude) in extension
+            settings
+          </li>
+          <li>Select any text below</li>
+          <li>Click the extension icon and then "Floating Chatbox" button</li>
+          <li>Ask questions about the selected text!</li>
+        </ol>
+      </div>
+
+      <div class="test-section">
+        <h3>🧪 Test Content 1: Technology Article</h3>
+        <p>
+          Artificial Intelligence has revolutionized various industries in the
+          past decade. Machine learning algorithms are now capable of processing
+          vast amounts of data and making predictions with unprecedented
+          accuracy. From healthcare diagnostics to autonomous vehicles, AI is
+          transforming how we live and work. Natural Language Processing has
+          enabled chatbots and virtual assistants to understand and respond to
+          human queries more effectively than ever before.
+        </p>
+
+        <div class="highlight">
+          <strong>Try selecting this paragraph:</strong> Deep learning neural
+          networks mimic the human brain's structure and function, allowing
+          computers to learn complex patterns and make decisions. These networks
+          consist of multiple layers of interconnected nodes that process
+          information hierarchically, enabling breakthrough achievements in
+          image recognition, speech processing, and language translation.
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h3>📊 Test Content 2: Business Strategy</h3>
+        <p>
+          Modern businesses must adapt to digital transformation to remain
+          competitive. Cloud computing provides scalable infrastructure, while
+          data analytics offers insights for strategic decision-making. Customer
+          experience has become a key differentiator, requiring companies to
+          invest in user-friendly interfaces and personalized services.
+        </p>
+
+        <div class="code-block">
+          // Sample JavaScript code for testing function analyzeData(dataset) {
+          const result = dataset .filter(item => item.active) .map(item => ({
+          id: item.id, score: calculateScore(item.metrics) })) .sort((a, b) =>
+          b.score - a.score); return result.slice(0, 10); }
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h3>🌟 New Features in v4.1:</h3>
+        <ul class="feature-list">
+          <li>
+            Floating Chatbox: Opens a moveable chat window for AI conversations
+          </li>
+          <li>
+            Selected Text Context: Automatically detects and analyzes selected
+            webpage text
+          </li>
+          <li>
+            Enhanced UI: Modern, elegant design with glassmorphism effects
+          </li>
+          <li>Persistent Chat History: Remembers your conversations locally</li>
+          <li>Drag & Drop: Move the chatbox anywhere on your screen</li>
+          <li>Minimize/Maximize: Control chatbox visibility</li>
+          <li>Multi-AI Support: Works with Gemini, OpenAI, and Claude APIs</li>
+        </ul>
+      </div>
+
+      <div class="test-section">
+        <h3>🔬 Scientific Content for Testing</h3>
+        <p>
+          Quantum computing represents a paradigm shift in computational
+          capabilities. Unlike classical computers that use bits (0 or 1),
+          quantum computers use quantum bits or qubits that can exist in
+          multiple states simultaneously through superposition. This property,
+          combined with quantum entanglement, allows quantum computers to solve
+          certain problems exponentially faster than classical computers.
+        </p>
+
+        <div class="highlight">
+          <strong>Complex passage for AI analysis:</strong> The quantum
+          advantage becomes apparent in specific algorithms like Shor's
+          algorithm for factoring large numbers and Grover's algorithm for
+          searching unsorted databases. However, quantum decoherence and error
+          rates remain significant challenges that researchers are actively
+          addressing through quantum error correction techniques and improved
+          qubit designs.
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h3>💡 Testing Tips:</h3>
+        <ul>
+          <li>
+            Try selecting different types of content (technical, business,
+            creative)
+          </li>
+          <li>Ask specific questions about the selected text</li>
+          <li>Test the chatbox dragging functionality</li>
+          <li>Try minimizing and restoring the chatbox</li>
+          <li>Test with and without selected text</li>
+          <li>Check if chat history persists between sessions</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

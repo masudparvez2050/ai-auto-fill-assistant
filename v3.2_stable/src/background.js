@@ -1,5 +1,5 @@
 // Background script for AI Auto Fill
-console.log("AI Auto Fill: Background script loaded");
+// console.log("AI Auto Fill: Background script loaded");
 
 // Store the API clients
 let openaiClient = null;
@@ -69,7 +69,7 @@ async function generateWithGemini(fieldContext, customPrompt = null) {
 
       // Create a prompt based on the field context
       const prompt = createPromptFromFieldContext(fieldContext, customPrompt);
-      console.log("AI Auto Fill: Using model", model);
+      // console.log("AI Auto Fill: Using model", model);
 
       // Call Gemini API directly without SDK with timeout
       const controller = new AbortController();
@@ -559,9 +559,9 @@ function createPromptFromFieldContext(fieldContext, customPrompt = null) {
 async function safeInitialize() {
   try {
     await initializeAIClient();
-    console.log("AI Auto Fill: Background initialized successfully");
+    // console.log("AI Auto Fill: Background initialized successfully");
   } catch (error) {
-    console.error("AI Auto Fill: Error during initialization:", error);
+    // console.error("AI Auto Fill: Error during initialization:", error);
   }
 }
 
